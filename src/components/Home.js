@@ -3,11 +3,13 @@ import { Button } from '@material-ui/core';
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import Avatar from "../img/img_avatar.png";
+import Loader from './Loader';
 
 const Home = () => {
 
     const history = useHistory();
     const [userData, setuserData] = useState([]);
+    const [isLoading , setisLoading] = useState(true);
 
     const userFetching = async() => {
         console.log("run on useEffect");
@@ -15,6 +17,7 @@ const Home = () => {
         .get(`https://jsonplaceholder.typicode.com/users`)
         .then((response)=>{
             setuserData(response.data);
+            setisLoading(false);
         })
         .catch((error)=>{
             console.log(error);
@@ -30,6 +33,9 @@ const Home = () => {
     return (
         <section className="bg-light">
         <div className="container">
+        { isLoading ? <Loader/> 
+        :(   
+            <>
             <h3 className="text-center">All Users</h3>
             <div className="row g-4">
             {userData.map(users => (    
@@ -60,7 +66,8 @@ const Home = () => {
             ))
             }
         </div>
-            
+        </>
+        )}            
         </div>
         </section>
     )

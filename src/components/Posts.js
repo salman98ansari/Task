@@ -2,6 +2,7 @@ import React , {useState , useEffect} from 'react';
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { Button } from '@material-ui/core';
+import Loader from './Loader';
 
 
 
@@ -10,12 +11,14 @@ const Posts = ({location}) => {
     const [postData , setpostData] =  useState([]);
     // const [userData , setuserData] = useState([location != undefined ? location.state.userdata : ""]);
     const [userData , setuserData] = useState([]);
+    const[isLoading , setisLoading] = useState(true);
 
     const fetchPost = async ()=>{
         await axios
         .get(`https://jsonplaceholder.typicode.com/posts/?userId=` + location.state.userId)
         .then(response => {
             setpostData(response.data);
+            setisLoading(false);
         })
         .catch(error=>{
             console.log(error);
@@ -25,7 +28,7 @@ const Posts = ({location}) => {
     // conditon to avoid direct access of page via url cause page contain specific 
     // post id to render data accordingly
     useEffect(()=>{
-        if(location.state == undefined){
+        if(location.state === undefined){
             history.push('/');
         }
         else{
@@ -37,6 +40,9 @@ const Posts = ({location}) => {
     return (
         <section className="bg-light">
         <div className="container">
+        {isLoading ? <Loader /> 
+        :(
+            <>
             <h2 className="text-center mb-3">Posts</h2>
             <div className="row g-4">
             {postData.map(posts => (
@@ -60,7 +66,6 @@ const Posts = ({location}) => {
                         </p>
                         <Button
                         onClick={()=> history.push('/details' , {postId:posts.id})}
-                        // onClick={()=> console.log(users.id)}
                         variant="contained" color="primary"
                         >
                             See Post Comments
@@ -69,9 +74,10 @@ const Posts = ({location}) => {
                 </div>
                 </div>
             ))
-
             }
             </div>
+            </>
+        )}
         </div>
         </section>
     )

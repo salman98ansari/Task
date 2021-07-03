@@ -1,7 +1,7 @@
 import React , {useState , useEffect} from 'react'
 import axios from 'axios';
-import { Button } from '@material-ui/core';
 import { useHistory } from "react-router-dom";
+import Loader from "./Loader";
 
 
 
@@ -9,6 +9,7 @@ const Details = ({location}) => {
     const history = useHistory();
     console.log(location.state);
     const [details , setdetails] = useState([]);
+    const [isLoading , setisLoading] = useState(true);
 
     const fetchDetails = async()=> {
         await axios
@@ -16,6 +17,7 @@ const Details = ({location}) => {
         .then(response => {
             console.log(response.data);
             setdetails(response.data);
+            setisLoading(false);
         })
         .catch(error=>{
             console.log(error);
@@ -23,7 +25,7 @@ const Details = ({location}) => {
     }
 
     useEffect(()=>{
-        if(location.state == undefined){
+        if(location.state === undefined){
             history.push('/');
         }
         else{
@@ -34,6 +36,9 @@ const Details = ({location}) => {
     return (
         <section className="bg-light">
         <div className="container">
+        {isLoading ? <Loader/>
+        :(
+            <>
             <h2 className="text-center mb-3">Comments</h2>
             <div className="row g-4">
             {details.map(detail => (
@@ -44,7 +49,7 @@ const Details = ({location}) => {
                         Post ID : {detail.postId}
                         </h6>
                         <div class="h1 text-center">
-                              <i class="bi bi-card-heading"></i>
+                                <i class="bi bi-card-heading"></i>
                         </div>
                         <h5 className="card-title">
                         Email : {detail.email}
@@ -56,10 +61,10 @@ const Details = ({location}) => {
                 </div>
                 </div>
             ))
-
             }
             </div>
-
+            </>
+        )}
         </div>
         </section>
     )
