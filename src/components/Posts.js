@@ -46,11 +46,11 @@ const Posts = ({location}) => {
             <h2 className="text-center mb-3">Posts</h2>
             <div className="row g-4">
             {postData.map(posts => (
-                <div className="col-md-6">
-                <div className="card text-center bg-secondary text-light" key={posts.id}>
+                <div className="col-md-6" key={posts.id}>
+                <div className="card text-center bg-secondary text-light" >
                     <div className="card-body">
-                        <div class="h1">
-                              <i class="bi bi-card-heading"></i>
+                        <div className="h1">
+                              <i className="bi bi-card-heading"></i>
                         </div>
                         <h6 className='card-title'>
                         Sr No : {posts.id}
@@ -65,7 +65,7 @@ const Posts = ({location}) => {
                         Description : {posts.body}
                         </p>
                         <Button
-                        onClick={()=> history.push('/details' , {postId:posts.id})}
+                        onClick={()=> history.push('/details' , {postId:posts.id , postdata:posts})}
                         variant="contained" color="primary"
                         >
                             See Post Comments

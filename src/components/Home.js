@@ -12,7 +12,6 @@ const Home = () => {
     const [isLoading , setisLoading] = useState(true);
 
     const userFetching = async() => {
-        console.log("run on useEffect");
         await axios
         .get(`https://jsonplaceholder.typicode.com/users`)
         .then((response)=>{
@@ -28,8 +27,6 @@ const Home = () => {
         userFetching();
     },[])
 
-    console.log(userData);
-
     return (
         <section className="bg-light">
         <div className="container">
@@ -39,11 +36,11 @@ const Home = () => {
             <h3 className="text-center">All Users</h3>
             <div className="row g-4">
             {userData.map(users => (    
-                <div className="col-md-6 col-lg-4">
-                <div className="card bg-dark text-light" key={users.id}>
+                <div className="col-md-6 col-lg-4" key={users.id}>
+                <div className="card bg-dark text-light" >
                     <div className="card-body text-center">
                         <img src={Avatar}
-                            style={{width:100}}  class="rounded-circle mb-3" alt=""></img>
+                            style={{width:100}}  className="rounded-circle mb-3" alt=""></img>
                         <h3 className="card-title">
                         {users.name}
                         </h3>
