@@ -34,34 +34,31 @@ const Details = ({location}) => {
     return (
         <section className="bg-light">
         <div className="container">
-            <h2 className="text-center">Comments</h2>
+            <h2 className="text-center mb-3">Comments</h2>
+            <div className="row g-4">
             {details.map(detail => (
-                <div className="card m-3" key={detail.id}>
+                <div className="col-md-8 mx-auto">
+                <div className="card" key={detail.id}>
                     <div className="card-body">
-                        <h6 className='card-title'>
+                        <h6 className='card-title text-center'>
                         Post ID : {detail.postId}
                         </h6>
-                        <h6>
-                        Name : {detail.name}
-                        </h6>
-                        <h6 className="card-title">
+                        <div class="h1 text-center">
+                              <i class="bi bi-card-heading"></i>
+                        </div>
+                        <h5 className="card-title">
                         Email : {detail.email}
-                        </h6>
-                        <h6 className="card-title">
+                        </h5>
+                        <p className="lead card-body">
                         Comment : {detail.body}
-                        </h6>
-                        {/* <Button
-                        // onClick={()=> history.push('/details' , {postId:posts.id})}
-                        // onClick={()=> console.log(users.id)}
-                        variant="contained" color="primary"
-                        >
-                            Details
-                        </Button> */}
+                        </p>
                     </div>   
+                </div>
                 </div>
             ))
 
             }
+            </div>
 
         </div>
         </section>

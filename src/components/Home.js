@@ -2,6 +2,7 @@ import React , {useState , useEffect} from 'react'
 import { Button } from '@material-ui/core';
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import Avatar from "../img/img_avatar.png";
 
 const Home = () => {
 
@@ -29,30 +30,36 @@ const Home = () => {
     return (
         <section className="bg-light">
         <div className="container">
-            <h2 className="text-center">All Users</h2>
-            {userData.map(users => (
-                <div className="card m-3" key={users.id}>
-                    <div className="card-body">
-                        <h6 className="card-title">
-                        Name : {users.name}
-                        </h6>
-                        <h6 className="card-title">
+            <h3 className="text-center">All Users</h3>
+            <div className="row g-4">
+            {userData.map(users => (    
+                <div className="col-md-6 col-lg-4">
+                <div className="card bg-dark text-light" key={users.id}>
+                    <div className="card-body text-center">
+                        <img src={Avatar}
+                            style={{width:100}}  class="rounded-circle mb-3" alt=""></img>
+                        <h3 className="card-title">
+                        {users.name}
+                        </h3>
+                        <h5 className="card-title">
                         Username : {users.username}
-                        </h6>
-                        <h6 className="card-title">
-                        Emails : {users.email}
-                        </h6>
+                        </h5>
+                        <p className="card-text">
+                        Email : {users.email}
+                        </p>
                         <Button
                         onClick={()=> history.push('/posts' , {userId:users.id , userdata : users})}
-                        // onClick={()=> console.log(users.id)}
                         variant="contained" color="primary"
                         >
                             Users Post
                         </Button>
                     </div>   
-                </div>   
+                </div>
+                </div>
+                
             ))
             }
+        </div>
             
         </div>
         </section>

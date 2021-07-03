@@ -37,34 +37,41 @@ const Posts = ({location}) => {
     return (
         <section className="bg-light">
         <div className="container">
-            <h2 className="text-center">Posts</h2>
+            <h2 className="text-center mb-3">Posts</h2>
+            <div className="row g-4">
             {postData.map(posts => (
-                <div className="card m-3" key={posts.id}>
+                <div className="col-md-6">
+                <div className="card text-center bg-secondary text-light" key={posts.id}>
                     <div className="card-body">
+                        <div class="h1">
+                              <i class="bi bi-card-heading"></i>
+                        </div>
                         <h6 className='card-title'>
-                        UserId : {posts.userId}
-                        </h6>
-                        <h6>
-                        Name : {userData.name}
-                        </h6>
-                        <h6 className="card-title">
+                        Sr No : {posts.id}
+                        </h6> 
+                        <h2 className="card-title">
+                        {posts.userId} : {userData.name}
+                        </h2>
+                        <p className="card-title lead">
                         Title : {posts.title}
-                        </h6>
-                        <h6 className="card-title">
-                        Body : {posts.body}
-                        </h6>
+                        </p>
+                        <p className="card-body">
+                        Description : {posts.body}
+                        </p>
                         <Button
                         onClick={()=> history.push('/details' , {postId:posts.id})}
                         // onClick={()=> console.log(users.id)}
                         variant="contained" color="primary"
                         >
-                            Details
+                            See Post Comments
                         </Button>
                     </div>   
+                </div>
                 </div>
             ))
 
             }
+            </div>
         </div>
         </section>
     )
